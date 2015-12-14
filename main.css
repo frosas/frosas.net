@@ -1,27 +1,23 @@
 body {
-    padding: 0;
+    padding: 20%;
     color: #333;
     background-color: #f4f4f4;
     font-family: Georgia, Times, 'Times New Roman', serif;
     line-height: 24px;
-}
-
-body .home {
-    padding: 20% 0;
     text-align: center;
 }
 
-body .home .links {
+body .links {
     padding: 0;
     margin: 0;
     list-style: none;
 }
 
-body .home .links li {
+body .links li {
     display: inline;
 }
 
-body .home .links li:not(:last-child):after {
+body .links li:not(:last-child):after {
     content: " - ";
 }
 
