@@ -3,7 +3,6 @@ body {
     color: #333;
     background-color: #f4f4f4;
     font-family: Georgia, Times, 'Times New Roman', serif;
-    line-height: 24px;
     text-align: center;
 }
 
@@ -22,7 +21,7 @@ body .links li:not(:last-child):after {
 }
 
 h1 {
-    font-size: 34pt;
+    font-size: 48px;
     font-weight: normal;
 }
 
