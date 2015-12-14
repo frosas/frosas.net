@@ -1,0 +1,26 @@
+body {
+    padding: 0;
+    color: #333;
+    background-color: #f4f4f4;
+    font-family: Georgia, Times, 'Times New Roman', serif;
+    line-height: 24px;
+}
+
+body .home {
+    padding: 20% 0;
+    text-align: center;
+}
+
+h1 {
+    font-size: 34pt;
+    font-weight: normal;
+}
+
+a {
+    color: #7069af;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #4a4573;
+}
