@@ -11,6 +11,20 @@ body .home {
     text-align: center;
 }
 
+body .home .links {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+body .home .links li {
+    display: inline;
+}
+
+body .home .links li:not(:last-child):after {
+    content: " - ";
+}
+
 h1 {
     font-size: 34pt;
     font-weight: normal;
