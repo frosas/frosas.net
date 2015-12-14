@@ -1,5 +1,15 @@
+html {
+    height: 100%;
+}
+
 body {
-    padding: 20%;
+    min-height: 100%;
+    margin: 0;
+    padding: 10px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color: #333;
     background-color: #f4f4f4;
     font-family: Georgia, Times, 'Times New Roman', serif;
