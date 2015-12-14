@@ -1,0 +1,62 @@
+body{
+  padding:0 0;
+  color:#333;
+  background-color:#f4f4f4;
+  font-family: Georgia, Times, 'Times New Roman', serif;
+  line-height: 24px;
+}
+
+body .home{
+  padding:20% 0;
+  text-align:center
+}
+
+body .books{
+  padding:2% 0;
+  text-align:left;
+  margin-left:100px;
+}
+
+body .post{
+  width:540px;
+  margin: 0px auto;
+}
+
+
+h1{
+  font-size:34pt;
+  font-weight:normal;
+}
+
+a{
+  color:#7069af;
+  background-color:inherit;
+  text-decoration:none
+}
+
+a:hover{
+  color:#4a4573;
+  background-color:inherit
+}
+
+@mixin box_sizing {
+  -moz-box-sizing: border-box; 
+  -webkit-box-sizing: border-box; 
+  box-sizing: border-box;
+}
+
+input, textarea, select, .uneditable-input {
+  border: 1px solid #bbb;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  font-size:16px;
+  @include box_sizing;
+}
+
+.header{
+  float:right;
+}
+.header a, .header a:hover{
+  color:blue;
+}
