@@ -25,3 +25,21 @@
     ga('create', 'UA-25757791-4', 'auto');
     ga('send', 'pageview');
 </script>
+
+<script>
+    (function() {
+        var trackExternalLink = function(a) {
+            ga('send', {
+                hitType: 'event',
+                eventCategory: 'External link',
+                eventAction: 'Click',
+                eventLabel: a.href,
+                transport: 'beacon'
+            });
+        };
+        
+        document.body.addEventListener('click', function(event) {
+            trackExternalLink(event.target);
+        });
+    })();
+</script>
