@@ -54,11 +54,17 @@ ga('send', 'pageview');
         );
     };
     
-    getUnsplashImage(3 /* attempts */, function(url) {
-        var element = document.querySelector('.background');
-        element.style.backgroundImage = 'url(' + url + ')';
-        element.style.backgroundPosition = 'center';
-        element.style.backgroundSize = 'cover';
-        element.style.opacity = '1';
-    });
+    (function updateBackgroundPeriodically() {
+        // TODO Remove previous background once the transition finishes
+        var element = document.createElement('div');
+        element.className = 'background';
+        document.body.appendChild(element);
+        getUnsplashImage(3 /* attempts */, function(url) {
+            element.style.backgroundImage = 'url(' + url + ')';
+            element.style.backgroundPosition = 'center';
+            element.style.backgroundSize = 'cover';
+            element.style.opacity = '1';
+            setTimeout(updateBackgroundPeriodically, 10000);
+        });
+    })();
 })();
