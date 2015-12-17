@@ -20,3 +20,25 @@ ga('send', 'pageview');
         trackExternalLink(event.target);
     });
 })();
+
+(function() {
+    console.log('Selecting background...');
+    var url = 'https://api.unsplash.com/photos/random?featured&client_id=b75898bd3b9fe8ac5eca258e5ee3f8d6c7bd9de35b0e46ee5136c6b8a32b7149';
+    $.ajax(url).then(function(image) {
+        console.log('Loading background...');
+        preloadImage(image.urls.regular, function(url) {
+            console.log('Background loaded');
+            var element = document.querySelector('.background');
+            element.style.backgroundImage = 'url(' + url + ')';
+            element.style.backgroundPosition = 'center';
+            element.style.backgroundSize = 'cover';
+            element.style.opacity = '1';
+        });
+    });
+    
+    var preloadImage = function(url, callback) {
+        var image = new Image;
+        image.src = url;
+        image.onload = function() { callback(url); };
+    };
+})();
