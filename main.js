@@ -32,8 +32,9 @@ ga('send', 'pageview');
     var getUnsplashImage = function(attempts, callback) {
         if (!attempts) return console.log('[Unsplash] Aborting image load, no attempts remaining.');
         console.log('[Unsplash] Selecting image...');
-        var clientId = 'b75898bd3b9fe8ac5eca258e5ee3f8d6c7bd9de35b0e46ee5136c6b8a32b7149';
-        var url = 'https://api.unsplash.com/photos/random?featured&client_id=' + clientId;
+        var url = 'https://api.unsplash.com/photos/random?featured&' +
+            'client_id=b75898bd3b9fe8ac5eca258e5ee3f8d6c7bd9de35b0e46ee5136c6b8a32b7149&' +
+            Date.now(); // Needed to be truly random
         $.ajax(url).then(
             function(image) {
                 console.log('[Unsplash] Loading image...');
