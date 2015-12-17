@@ -30,7 +30,7 @@ body .background {
 
 body .content {
     background-color: rgba(244, 244, 244, .9);
-    padding: 40px 60px;
+    padding: 60px 80px;
     border-radius: 10px;
 }
 
@@ -49,8 +49,9 @@ body .links li:not(:last-child):after {
 }
 
 h1 {
-    font-size: 48px;
+    font-size: 52px;
     font-weight: normal;
+    margin-top: 0;
 }
 
 a {
