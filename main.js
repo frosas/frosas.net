@@ -65,7 +65,8 @@ ga('send', 'pageview');
             element.style.backgroundPosition = 'center';
             element.style.backgroundSize = 'cover';
             element.style.opacity = '1';
-            setTimeout(updateBackgroundPeriodically, 10000);
+            // TODO Enable it back once my requests rate limit is raised
+            // setTimeout(updateBackgroundPeriodically, 10000);
         });
     })();
 })();
