@@ -78,7 +78,9 @@ ga('send', 'pageview');
         };
     };
     
-    var themeColorEl = document.querySelector('meta[name=theme-color]');
+    var themeColorEl = document.createElement('meta');
+    themeColorEl.name = 'theme-color';
+    document.head.appendChild(themeColorEl);
     
     var element = document.createElement('div');
     element.className = 'background';
