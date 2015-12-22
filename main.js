@@ -39,18 +39,27 @@ ga('send', 'pageview');
             Date.now(); // Needed to be truly random
         $.ajax(url).then(
             function(image) {
-                // Preload the image so that the opacity transition of the background
-                // element doesn't start before it is loaded
-                console.log('[Unsplash] Loading image...');
-                var url = image.urls.custom + '&fit=min';
-                preloadImage(url, function(error) {
-                    if (error) return callback(error);
-                    console.log('[Unsplash] Image loaded');
-                    callback(null, {url: url, color: image.color});
+                callback(null, {
+                    url: image.urls.custom + '&fit=min',
+                    color: image.color
                 });
             },
             function(error) { callback(new Error(error.statusText)); }
         );
+    };
+    
+    // Preload the image so that the opacity transition of the background
+    // element doesn't start before it is loaded
+    getPreloadedUnsplashImage = function(callback) {
+        getUnsplashImage(function(error, image) {
+            if (error) return callback(error);
+            console.log('[Unsplash] Loading image...');
+            preloadImage(image.url, function(error) {
+                if (error) return callback(error);
+                console.log('[Unsplash] Image loaded');
+                callback(null, image);
+            });
+        });
     };
     
     /**
@@ -86,7 +95,7 @@ ga('send', 'pageview');
     var element = document.createElement('div');
     element.className = 'background';
     document.body.appendChild(element);
-    retryify(3 /* attempts */, getUnsplashImage)(function(error, image) {
+    retryify(3 /* attempts */, getPreloadedUnsplashImage)(function(error, image) {
         if (error) throw error;
         themeColorEl.content = image.color;
         element.style.backgroundImage = 'url(' + image.url + ')';
