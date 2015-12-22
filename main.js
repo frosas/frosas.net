@@ -55,9 +55,7 @@ ga('send', 'pageview');
             if (error) return callback(error);
             console.log('[Unsplash] Loading image...');
             preloadImage(image.url, function(error) {
-                if (error) return callback(error);
-                console.log('[Unsplash] Image loaded');
-                callback(null, image);
+                callback(error, image);
             });
         });
     };
@@ -97,6 +95,7 @@ ga('send', 'pageview');
     document.body.appendChild(element);
     retryify(3 /* attempts */, getPreloadedUnsplashImage)(function(error, image) {
         if (error) throw error;
+        console.log('[Unsplash] Image loaded');
         themeColorEl.content = image.color;
         element.style.backgroundImage = 'url(' + image.url + ')';
         element.style.backgroundPosition = 'center';
