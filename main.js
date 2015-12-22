@@ -40,6 +40,8 @@ ga('send', 'pageview');
             Date.now(); // Needed to be truly random
         $.ajax(url).then(
             function(image) {
+                // Preload the image so that the opacity transition of the background
+                // element doesn't start before it is loaded
                 console.log('[Unsplash] Loading image...');
                 var url = image.urls.custom + '&fit=min';
                 preloadImage(url, function(error) {
