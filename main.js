@@ -80,6 +80,7 @@ ga('send', 'pageview');
     
     var themeColorEl = document.createElement('meta');
     themeColorEl.name = 'theme-color';
+    themeColorEl.content = getComputedStyle(document.body).getPropertyValue('background-color');
     document.head.appendChild(themeColorEl);
     
     var element = document.createElement('div');
