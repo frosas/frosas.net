@@ -80,20 +80,15 @@ ga('send', 'pageview');
     
     var themeColorEl = document.querySelector('meta[name=theme-color]');
     
-    (function updateBackgroundPeriodically() {
-        // TODO Remove previous background once the transition finishes
-        var element = document.createElement('div');
-        element.className = 'background';
-        document.body.appendChild(element);
-        retryify(3 /* attempts */, getUnsplashImage)(function(error, image) {
-            if (error) throw error;
-            themeColorEl.content = image.color;
-            element.style.backgroundImage = 'url(' + image.url + ')';
-            element.style.backgroundPosition = 'center';
-            element.style.backgroundSize = 'cover';
-            element.style.opacity = '1';
-            // TODO Enable it back once my requests rate limit is raised
-            // setTimeout(updateBackgroundPeriodically, 10000);
-        });
-    })();
+    var element = document.createElement('div');
+    element.className = 'background';
+    document.body.appendChild(element);
+    retryify(3 /* attempts */, getUnsplashImage)(function(error, image) {
+        if (error) throw error;
+        themeColorEl.content = image.color;
+        element.style.backgroundImage = 'url(' + image.url + ')';
+        element.style.backgroundPosition = 'center';
+        element.style.backgroundSize = 'cover';
+        element.style.opacity = '1';
+    });
 })();
