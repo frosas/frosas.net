@@ -29,8 +29,7 @@ ga('send', 'pageview');
         image.onerror = function(error) { callback(error); }
     };
     
-    var getUnsplashImage = function(attempts, callback) {
-        if (!attempts) return console.log('[Unsplash] Aborting image load, no attempts remaining.');
+    var getUnsplashImage = function(callback) {
         console.log('[Unsplash] Selecting image...');
         var url = 'https://api.unsplash.com/photos/random?' +
             'client_id=b75898bd3b9fe8ac5eca258e5ee3f8d6c7bd9de35b0e46ee5136c6b8a32b7149&' +
@@ -45,20 +44,25 @@ ga('send', 'pageview');
                 console.log('[Unsplash] Loading image...');
                 var url = image.urls.custom + '&fit=min';
                 preloadImage(url, function(error) {
-                    if (error) {
-                        console.log(error);
-                        getUnsplashImage(attempts - 1, callback);
-                        return;
-                    }
+                    if (error) return callback(error);
                     console.log('[Unsplash] Image loaded');
-                    callback({url: url, color: image.color});
+                    callback(null, {url: url, color: image.color});
                 });
             },
-            function(error) {
-                console.log(error);
-                getUnsplashImage(attempts - 1, callback);
-            }
+            callback
         );
+    };
+    
+    var getUnsplashImageRetried = function(attempts, callback) {
+        if (!attempts) return console.log('[Unsplash] Aborting image load, no attempts remaining.');
+        getUnsplashImage(function(error, image) {
+            if (error) {
+                getUnsplashImageRetried(attempts - 1, callback);
+                console.log(error);
+                return;
+            }
+            callback(image);
+        });
     };
     
     var themeColorEl = document.querySelector('meta[name=theme-color]');
@@ -68,7 +72,7 @@ ga('send', 'pageview');
         var element = document.createElement('div');
         element.className = 'background';
         document.body.appendChild(element);
-        getUnsplashImage(3 /* attempts */, function(image) {
+        getUnsplashImageRetried(3 /* attempts */, function(image) {
             themeColorEl.content = image.color;
             element.style.backgroundImage = 'url(' + image.url + ')';
             element.style.backgroundPosition = 'center';
