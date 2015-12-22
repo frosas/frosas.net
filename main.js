@@ -49,20 +49,33 @@ ga('send', 'pageview');
                     callback(null, {url: url, color: image.color});
                 });
             },
-            callback
+            function(error) { callback(new Error(error.statusText)); }
         );
     };
     
-    var getUnsplashImageRetried = function(attempts, callback) {
-        if (!attempts) return console.log('[Unsplash] Aborting image load, no attempts remaining.');
-        getUnsplashImage(function(error, image) {
-            if (error) {
-                getUnsplashImageRetried(attempts - 1, callback);
-                console.log(error);
-                return;
-            }
-            callback(image);
-        });
+    /**
+     * @param {number} attempts Total amount of attempts
+     * @param {Function} callback Node-style function to retry
+     * @return {Function} A function that will execute `callback` up to `attempts`
+     *     times in case of error.
+     */
+    var retryify = function(attempts, callback) {
+        // TODO Handle synchronous errors
+        return function() { // The "retryifee"
+            var localAttempts = attempts;
+            var localArgs = [].slice.call(arguments);
+            var localCallback = localArgs.pop();
+            (function retry() {
+                if (!localAttempts--) return localCallback(new Error('No attempts remaining, aborting.'));
+                callback.apply(null, localArgs.concat(function(error) {
+                    if (error) {
+                        console.error(error);
+                        return retry.apply(null, arguments);
+                    }
+                    localCallback.apply(null, arguments);
+                }));
+            })();
+        };
     };
     
     var themeColorEl = document.querySelector('meta[name=theme-color]');
@@ -72,7 +85,8 @@ ga('send', 'pageview');
         var element = document.createElement('div');
         element.className = 'background';
         document.body.appendChild(element);
-        getUnsplashImageRetried(3 /* attempts */, function(image) {
+        retryify(3 /* attempts */, getUnsplashImage)(function(error, image) {
+            if (error) throw error;
             themeColorEl.content = image.color;
             element.style.backgroundImage = 'url(' + image.url + ')';
             element.style.backgroundPosition = 'center';
