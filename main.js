@@ -6,18 +6,18 @@ ga('create', 'UA-25757791-4', 'auto');
 ga('send', 'pageview');
 
 (function() {
-    var trackExternalLink = function(a) {
+    var trackExternalLink = function(url) {
         ga('send', {
             hitType: 'event',
             eventCategory: 'External link',
             eventAction: 'Click',
-            eventLabel: a.href,
+            eventLabel: url,
             transport: 'beacon'
         });
     };
     
     document.body.addEventListener('click', function(event) {
-        trackExternalLink(event.target);
+        trackExternalLink(event.target.href);
     });
 })();
 
