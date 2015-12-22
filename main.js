@@ -25,7 +25,7 @@ ga('send', 'pageview');
     var preloadImage = function(url, callback) {
         var image = new Image;
         image.src = url;
-        image.onload = function() { callback(null, url); };
+        image.onload = function() { callback(); };
         image.onerror = function(error) { callback(error); }
     };
     
@@ -41,14 +41,15 @@ ga('send', 'pageview');
         $.ajax(url).then(
             function(image) {
                 console.log('[Unsplash] Loading image...');
-                preloadImage(image.urls.custom + '&fit=min', function(error, url) {
+                var url = image.urls.custom + '&fit=min';
+                preloadImage(url, function(error) {
                     if (error) {
                         console.log(error);
                         getUnsplashImage(attempts - 1, callback);
                         return;
                     }
                     console.log('[Unsplash] Image loaded');
-                    callback(url);
+                    callback({url: url, color: image.color});
                 });
             },
             function(error) {
@@ -58,13 +59,16 @@ ga('send', 'pageview');
         );
     };
     
+    var themeColorEl = document.querySelector('meta[name=theme-color]');
+    
     (function updateBackgroundPeriodically() {
         // TODO Remove previous background once the transition finishes
         var element = document.createElement('div');
         element.className = 'background';
         document.body.appendChild(element);
-        getUnsplashImage(3 /* attempts */, function(url) {
-            element.style.backgroundImage = 'url(' + url + ')';
+        getUnsplashImage(3 /* attempts */, function(image) {
+            themeColorEl.content = image.color;
+            element.style.backgroundImage = 'url(' + image.url + ')';
             element.style.backgroundPosition = 'center';
             element.style.backgroundSize = 'cover';
             element.style.opacity = '1';
