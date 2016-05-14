@@ -29,6 +29,13 @@ ga('send', 'pageview');
         image.onerror = function(error) { callback(error); }
     };
     
+    var fetch = function(url, callback) {
+        var request = new XMLHttpRequest;
+        request.onload = request.onerror = request.onabort = function() { callback(this); };
+        request.open('GET', url, true);
+        request.send();
+    };
+    
     var getUnsplashImage = function(callback) {
         console.log('[Unsplash] Selecting image...');
         var url = 'https://api.unsplash.com/photos/random?' +
@@ -37,15 +44,14 @@ ga('send', 'pageview');
             'w=' + innerWidth + '&' +
             'h=' + innerHeight + '&' +
             Date.now(); // Needed to be truly random
-        $.ajax(url).then(
-            function(image) {
-                callback(null, {
-                    url: image.urls.custom + '&fit=min',
-                    color: image.color
-                });
-            },
-            function(error) { callback(new Error(error.statusText)); }
-        );
+        fetch(url, function(request) {
+            try { var image = JSON.parse(request.responseText); }
+            catch (error) { return callback(error); }
+            callback(null, {
+                url: image.urls.custom + '&fit=min',
+                color: image.color
+            });
+        });
     };
     
     // Preload the image so that the opacity transition of the background
