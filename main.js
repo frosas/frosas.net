@@ -16,7 +16,7 @@ ga('send', 'pageview');
         });
     };
     
-    document.body.addEventListener('click', function(event) {
+    document.addEventListener('click', function(event) {
         trackExternalLink(event.target.href);
     });
 })();
