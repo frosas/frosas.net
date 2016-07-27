@@ -56,7 +56,7 @@ ga('send', 'pageview');
     
     // Preload the image so that the opacity transition of the background
     // element doesn't start before it is loaded
-    getPreloadedUnsplashImage = function(callback) {
+    var getPreloadedUnsplashImage = function(callback) {
         getUnsplashImage(function(error, image) {
             if (error) return callback(error);
             console.log('[Unsplash] Loading image...');
