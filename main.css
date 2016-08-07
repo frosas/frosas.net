@@ -48,6 +48,20 @@ body .links li:not(:last-child):after {
     content: " - ";
 }
 
+body .credits {
+    color: #fff;
+    font-style: italic;
+    font-size: 90%;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+
+body .credits a {
+    color: #fff;
+    font-weight: bold;
+}
+
 h1 {
     font-size: 52px;
     font-weight: normal;

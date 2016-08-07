@@ -49,14 +49,15 @@ ga('send', 'pageview');
             catch (error) { return callback(error); }
             callback(null, {
                 url: image.urls.custom + '&fit=min',
-                color: image.color
+                color: image.color,
+                user: image.user
             });
         });
     };
     
     // Preload the image so that the opacity transition of the background
     // element doesn't start before it is loaded
-    getPreloadedUnsplashImage = function(callback) {
+    var getPreloadedUnsplashImage = function(callback) {
         getUnsplashImage(function(error, image) {
             if (error) return callback(error);
             console.log('[Unsplash] Loading image...');
@@ -101,11 +102,22 @@ ga('send', 'pageview');
     document.body.appendChild(element);
     retryify(3 /* attempts */, getPreloadedUnsplashImage)(function(error, image) {
         if (error) throw error;
+        
         console.log('[Unsplash] Image loaded');
+        
         themeColorEl.content = image.color;
+        
         element.style.backgroundImage = 'url(' + image.url + ')';
         element.style.backgroundPosition = 'center';
         element.style.backgroundSize = 'cover';
         element.style.opacity = '1';
+        
+        var creditsEl = document.createElement('div');
+        creditsEl.classList.add('credits');
+        creditsEl.innerHTML = document.querySelector('#credits-template').textContent;
+        var authorEl = creditsEl.querySelector('.author');
+        authorEl.textContent = image.user.name;
+        authorEl.href = image.user.links.html;
+        document.body.appendChild(creditsEl);
     });
 })();
