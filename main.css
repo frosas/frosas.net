@@ -42,10 +42,7 @@ body .links {
 
 body .links li {
     display: inline;
-}
-
-body .links li:not(:last-child):after {
-    content: " - ";
+    padding: 0 3px;
 }
 
 body .credits {
