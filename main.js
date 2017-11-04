@@ -17,7 +17,8 @@ ga('send', 'pageview');
     };
     
     document.addEventListener('click', function(event) {
-        trackExternalLink(event.target.href);
+        var url = event.target.href;
+        if (url) trackExternalLink(url);
     });
 })();
 
