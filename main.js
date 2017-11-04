@@ -6,7 +6,7 @@ ga('create', 'UA-25757791-4', 'auto');
 ga('send', 'pageview');
 
 (function() {
-    var trackExternalLink = function(url) {
+    function trackExternalLink(url) {
         ga('send', {
             hitType: 'event',
             eventCategory: 'External link',
@@ -15,9 +15,15 @@ ga('send', 'pageview');
             transport: 'beacon'
         });
     };
+
+    function getElementEffectiveHref(el) {
+        if (!el) return;
+        if (el.href != null) return el.href;
+        return getElementEffectiveHref(el.parentNode);
+    };
     
     document.addEventListener('click', function(event) {
-        var url = event.target.href;
+        var url = getElementEffectiveHref(event.target);
         if (url) trackExternalLink(url);
     });
 })();
