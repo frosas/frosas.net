@@ -103,26 +103,46 @@ ga('send', 'pageview');
   themeColorEl.name = 'theme-color';
   themeColorEl.content = getComputedStyle(document.body).getPropertyValue('background-color');
   document.head.appendChild(themeColorEl);
-  
-  var element = document.createElement('div');
-  element.className = 'background';
-  document.body.appendChild(element);
-  retryify(3 /* attempts */, getPreloadedUnsplashImage)(function(error, image) {
-    if (error) throw error;
-    
-    console.log('[Unsplash] Image loaded');
-    
-    themeColorEl.content = image.color;
-    
-    element.style.backgroundImage = 'url(' + image.url + ')';
-    element.classList.add('loaded');
-    
-    var creditsEl = document.createElement('div');
-    creditsEl.classList.add('credits');
-    creditsEl.innerHTML = document.querySelector('#credits-template').textContent;
-    var authorEl = creditsEl.querySelector('.author');
-    authorEl.textContent = image.user.name;
-    authorEl.href = image.user.links.html;
-    document.body.appendChild(creditsEl);
-  });
+
+  var currentBackgroundEl;
+  var creditsEl;
+  (function updateBackgroundPeriodically() {
+    var transitionDelay = currentBackgroundEl ? 2000 : 500; // ms
+    var el = document.createElement('div');
+    el.className = 'background';    
+    el.style.transition = 'transform ease-out 60s, opacity ' + transitionDelay + 'ms';
+    document.body.appendChild(el);
+    retryify(3 /* attempts */, getPreloadedUnsplashImage)(function(error, image) {
+      if (error) throw error;
+
+      if (currentBackgroundEl) {
+        // Remove the previous background once it's no longer visible
+        (function() {
+          var el = currentBackgroundEl;
+          setTimeout(function() { el.parentNode.removeChild(el); }, transitionDelay);
+        })();
+      }
+      currentBackgroundEl = el;
+            
+      console.log('[Unsplash] Image loaded');
+      
+      themeColorEl.content = image.color;
+      
+      el.style.backgroundImage = 'url(' + image.url + ')';
+      el.classList.add('loaded');
+      
+      if (!creditsEl) {
+        creditsEl = document.createElement('div');
+        creditsEl.classList.add('credits');
+        creditsEl.innerHTML = document.querySelector('#credits-template').textContent;
+        document.body.appendChild(creditsEl);
+      }
+      var authorEl = creditsEl.querySelector('.author');
+      authorEl.textContent = image.user.name;
+      authorEl.href = image.user.links.html;
+
+      setTimeout(updateBackgroundPeriodically, 15 /* seconds */ * 1000);
+    });
+  })();
 })();
+  
