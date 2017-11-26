@@ -11,7 +11,7 @@ body {
   align-items: center;
   justify-content: center;
   color: #333;
-  background-color: rgb(244, 244, 244);
+  background-color: #fff;
   font-family: Georgia, Times, 'Times New Roman', serif;
   text-align: center;
   position: relative;
@@ -35,7 +35,7 @@ body .background.loaded {
 }
 
 body .content {
-  background-color: rgba(244, 244, 244, .9);
+  background-color: rgba(255, 255, 255, 0.97);
   padding: 30px;
   border-radius: 10px;
 }
