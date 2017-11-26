@@ -127,6 +127,8 @@ ga('send', 'pageview');
       console.log('[Unsplash] Image loaded');
       
       themeColorEl.content = image.color;
+
+      document.body.classList.add('with-background');
       
       el.style.backgroundImage = 'url(' + image.url + ')';
       el.classList.add('loaded');
