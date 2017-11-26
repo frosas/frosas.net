@@ -115,10 +115,7 @@ ga('send', 'pageview');
     themeColorEl.content = image.color;
     
     element.style.backgroundImage = 'url(' + image.url + ')';
-    element.style.backgroundPosition = 'center';
-    element.style.backgroundSize = 'cover';
-    element.style.opacity = '1';
-    element.style.transform = 'scale(1.2)';
+    element.classList.add('loaded');
     
     var creditsEl = document.createElement('div');
     creditsEl.classList.add('credits');

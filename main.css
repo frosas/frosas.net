@@ -28,6 +28,13 @@ body .background {
   transition: opacity .5s, transform ease-in-out 60s;
 }
 
+body .background.loaded {
+  background-position: center;
+  background-size: cover;
+  opacity: 1;
+  transform: scale(1.2);
+}
+
 body .content {
   background-color: rgba(244, 244, 244, .9);
   padding: 30px;
