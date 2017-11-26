@@ -1,6 +1,6 @@
 ## frosas.net
 
-### Setup
+### Development
 
 ```bash
 $ npm i -g serve
