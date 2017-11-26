@@ -47,7 +47,7 @@ ga('send', 'pageview');
     console.log('[Unsplash] Selecting image...');
     var url = 'https://api.unsplash.com/photos/random?' +
       'client_id=b75898bd3b9fe8ac5eca258e5ee3f8d6c7bd9de35b0e46ee5136c6b8a32b7149&' +
-      'collections=1431956&' + // https://unsplash.com/collections/1431956/frosasnet
+      'collections=1432089&' +
       'w=' + innerWidth + '&' +
       'h=' + innerHeight + '&' +
       Date.now(); // Needed to be truly random
