@@ -118,6 +118,7 @@ ga('send', 'pageview');
     element.style.backgroundPosition = 'center';
     element.style.backgroundSize = 'cover';
     element.style.opacity = '1';
+    element.style.transform = 'scale(1.2)';
     
     var creditsEl = document.createElement('div');
     creditsEl.classList.add('credits');
