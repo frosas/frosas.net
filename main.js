@@ -141,7 +141,7 @@ ga('send', 'pageview');
       authorEl.textContent = image.user.name;
       authorEl.href = image.user.links.html;
 
-      setTimeout(updateBackgroundPeriodically, 15 /* seconds */ * 1000);
+      setTimeout(updateBackgroundPeriodically, 10 /* seconds */ * 1000);
     });
   })();
 })();
