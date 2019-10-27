@@ -1,0 +1,5 @@
+[[redirects]]
+  from = "/"
+  to = "https://francescrosas.com"
+  status = 301
+  force = false
